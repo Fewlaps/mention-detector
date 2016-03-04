@@ -1,5 +1,5 @@
 # mention-detector
-Detect **@mentions** with this fully tested library
+Detect **@mentions** and **@sequence @of @mentions** with this fully tested library.
 
 ```java
 String text = "Hello! This is a great introduction to @MentionDetector!";
@@ -27,6 +27,30 @@ sequence.start(); //Where the sequence starts? At 14!
 sequence.end(); //Where the sequence ends? At 37!
 
 //Now, you can create one StyleSpan instead of three. And that's great for performance!
+```
+
+#Download
+
+* Get <a href="https://github.com/Fewlaps/mention-detector/releases/download/1.0.0/mention-detector-1.0.0.jar">the latest .jar</a> 
+
+* Grab via Gradle:
+```groovy
+repositories { jcenter() }
+    
+compile 'com.fewlaps.mentiondetector:mention-detector:1.0.0'
+```
+* Grab via Maven:
+```xml
+<repository>
+  <id>jcenter</id>
+  <url>http://jcenter.bintray.com</url>
+</repository>
+
+<dependency>
+    <groupId>com.fewlaps.mentiondetector</groupId>
+    <artifactId>mention-detector</artifactId>
+    <version>1.0.0</version>
+</dependency>
 ```
 
 ## LICENSE ##
