@@ -30,7 +30,7 @@ public class MentionDetector {
         return cache;
     }
 
-    public List<Mention> parseMentions() {
+    List<Mention> parseMentions() {
         List<Mention> mentions = new ArrayList();
 
         String[] tokens = text.split(" ");
