@@ -18,4 +18,8 @@ public class Mention {
     public int end() {
         return end;
     }
+
+    public String username() {
+        return username;
+    }
 }

@@ -5,14 +5,14 @@ import java.util.List;
 
 public class MentionDetector {
 
-    String text;
+    private String text;
+    private RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
 
     public MentionDetector(String text) {
         if (text == null) {
             throw new NullPointerException();
-        } else {
-            this.text = text;
         }
+        this.text = text;
     }
 
     public List<Mention> getMentions() {
@@ -22,7 +22,8 @@ public class MentionDetector {
         int start = 0;
         for (String token : tokens) {
             if (token.startsWith("@") && token.length() > 2) {
-                mentions.add(new Mention(token, start, start + token.length()));
+                String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
+                mentions.add(new Mention(usernameWithoutExclamationMarks, start, start + usernameWithoutExclamationMarks.length()));
             }
             start += token.length() + 1;
         }
