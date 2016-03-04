@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-public class PerformanceTest {
+public class CacheTest {
 
     @Test
     public void shouldCallParseTextOnce_whenCallingGetMentionsTwice() throws InterruptedException {
