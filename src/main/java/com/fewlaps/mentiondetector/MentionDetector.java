@@ -73,4 +73,8 @@ public class MentionDetector {
     private boolean textBetweenMentionsIsWhitespace(Mention firstMention, Mention nextMention) {
         return text.substring(firstMention.end(), nextMention.start()).trim().equals("");
     }
+
+    public boolean hasMentions() {
+        return !getMentions().isEmpty();
+    }
 }

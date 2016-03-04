@@ -63,4 +63,25 @@ public class GetMentionsTest {
         String username = new MentionDetector(text).getMentions().get(0).username();
         assertThat(username).isEqualTo("@roc");
     }
+
+    @Test
+    public void shouldReturnFalse_whenPassingBlank() throws InterruptedException {
+        String text = "";
+        boolean hasMentions = new MentionDetector(text).hasMentions();
+        assertThat(hasMentions).isFalse();
+    }
+
+    @Test
+    public void shouldReturnFalse_whenPassingATextWithoutMentions() throws InterruptedException {
+        String text = "a text without mentions";
+        boolean hasMentions = new MentionDetector(text).hasMentions();
+        assertThat(hasMentions).isFalse();
+    }
+
+    @Test
+    public void shouldReturnTrue_whenPassingATextWithAMention() throws InterruptedException {
+        String text = "I want to mention @rocboronat";
+        boolean hasMentions = new MentionDetector(text).hasMentions();
+        assertThat(hasMentions).isTrue();
+    }
 }
