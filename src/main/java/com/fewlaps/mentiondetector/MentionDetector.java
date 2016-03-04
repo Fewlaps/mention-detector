@@ -23,7 +23,7 @@ public class MentionDetector {
         String[] tokens = text.split(" ");
         int start = 0;
         for (String token : tokens) {
-            if (token.startsWith(AT_SYMBOL) && token.length() > 2) {
+            if (isMention(token)) {
                 String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
                 mentions.add(new Mention(usernameWithoutExclamationMarks, start));
             }
@@ -59,6 +59,11 @@ public class MentionDetector {
             i++;
         }
         return sequences;
+    }
+
+    private boolean isMention(String token) {
+        String tokenWithoutPunctuationMarks = removePunctuationMarks.removePunctuationMarks(token);
+        return tokenWithoutPunctuationMarks.startsWith(AT_SYMBOL) && tokenWithoutPunctuationMarks.length() > 2;
     }
 
     private boolean textBetweenMentionsIsWhitespace(Mention firstMention, Mention nextMention) {
