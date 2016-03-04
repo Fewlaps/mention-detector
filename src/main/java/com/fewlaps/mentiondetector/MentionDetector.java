@@ -10,6 +10,8 @@ public class MentionDetector {
     private String text;
     private RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
 
+    private List<Mention> cache = null;
+
     public MentionDetector(String text) {
         if (text == null) {
             throw new NullPointerException();
@@ -22,6 +24,13 @@ public class MentionDetector {
     }
 
     public List<Mention> getMentions() {
+        if (cache == null) {
+            cache = parseMentions();
+        }
+        return cache;
+    }
+
+    public List<Mention> parseMentions() {
         List<Mention> mentions = new ArrayList();
 
         String[] tokens = text.split(" ");
