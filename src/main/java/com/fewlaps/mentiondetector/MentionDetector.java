@@ -2,7 +2,6 @@ package com.fewlaps.mentiondetector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class MentionDetector {
 
@@ -19,10 +18,9 @@ public class MentionDetector {
     public List<Mention> getMentions() {
         List<Mention> mentions = new ArrayList();
 
+        String[] tokens = text.split(" ");
         int start = 0;
-        StringTokenizer st = new StringTokenizer(text, " ");
-        while (st.hasMoreTokens()) {
-            String token = st.nextToken();
+        for (String token : tokens) {
             if (token.startsWith("@") && token.length() > 2) {
                 mentions.add(new Mention(token, start, start + token.length()));
             }

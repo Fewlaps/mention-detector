@@ -61,4 +61,18 @@ public class GetMentionsWithPositionTest {
 
         assertThat(esteveEnd).isEqualTo(22);
     }
+
+    @Test
+    public void shouldReturnStart10_whenMentionStartsAtPosition10_andThereAreLotsOfWhitespaces() throws InterruptedException {
+        String text = "hello     @roc";
+        int start = new MentionDetector(text).getMentions().get(0).start();
+        assertThat(start).isEqualTo(10);
+    }
+
+    @Test
+    public void shouldReturnEnd14_whenMentionEndsAtPosition14_andThereAreLotsOfWhitespaces() throws InterruptedException {
+        String text = "hello     @roc";
+        int end = new MentionDetector(text).getMentions().get(0).end();
+        assertThat(end).isEqualTo(14);
+    }
 }
