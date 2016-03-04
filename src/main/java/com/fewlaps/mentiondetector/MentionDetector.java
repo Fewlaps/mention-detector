@@ -1,6 +1,7 @@
 package com.fewlaps.mentiondetector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MentionDetector {
@@ -31,6 +32,9 @@ public class MentionDetector {
     }
 
     List<Mention> parseMentions() {
+        if (!text.contains(AT_SYMBOL)) {
+            return Collections.emptyList();
+        }
         List<Mention> mentions = new ArrayList();
 
         String[] tokens = text.split(" ");
