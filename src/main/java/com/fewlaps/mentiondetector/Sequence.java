@@ -4,11 +4,11 @@ public class Sequence {
     private int start;
     private int end;
 
-    public void setStart(int start) {
+    void setStart(int start) {
         this.start = start;
     }
 
-    public void setEnd(int end) {
+    void setEnd(int end) {
         this.end = end;
     }
 
