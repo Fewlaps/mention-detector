@@ -9,8 +9,8 @@ public class MentionDetector {
 
     private static final String AT_SYMBOL = "@";
 
-    private String text;
-    private RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
+    private final String text;
+    private final RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
 
     private List<Mention> cache = null;
 
