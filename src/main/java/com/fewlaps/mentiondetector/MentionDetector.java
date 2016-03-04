@@ -25,12 +25,16 @@ public class MentionDetector {
         for (String token : tokens) {
             if (isMention(token)) {
                 String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
-                mentions.add(new Mention(usernameWithoutExclamationMarks, start));
+                mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(token, start)));
             }
             start += token.length() + 1;
         }
 
         return mentions;
+    }
+
+    private int getMentionStart(String token, int tokenIndex) {
+        return tokenIndex + token.indexOf(AT_SYMBOL);
     }
 
     public List<Sequence> getSequences() {

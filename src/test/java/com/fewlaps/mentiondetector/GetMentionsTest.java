@@ -42,4 +42,25 @@ public class GetMentionsTest {
         List<Mention> mentions = new MentionDetector(text).getMentions();
         assertThat(mentions).hasSize(2);
     }
+
+    @Test
+    public void shouldIgnoreStartingParenthesis() throws InterruptedException {
+        String text = "hello (@roc";
+        String username = new MentionDetector(text).getMentions().get(0).username();
+        assertThat(username).isEqualTo("@roc");
+    }
+
+    @Test
+    public void shouldIgnoreStartingBracket() throws InterruptedException {
+        String text = "hello {@roc";
+        String username = new MentionDetector(text).getMentions().get(0).username();
+        assertThat(username).isEqualTo("@roc");
+    }
+
+    @Test
+    public void shouldIgnoreWrappingParenthesis() throws InterruptedException {
+        String text = "hello (@roc)";
+        String username = new MentionDetector(text).getMentions().get(0).username();
+        assertThat(username).isEqualTo("@roc");
+    }
 }

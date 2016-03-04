@@ -75,4 +75,18 @@ public class GetMentionsWithPositionTest {
         int end = new MentionDetector(text).getMentions().get(0).end();
         assertThat(end).isEqualTo(14);
     }
+
+    @Test
+    public void shouldIgnoreStartingBrackets_whenGettintStartPosition() throws InterruptedException {
+        String text = "hello    {@roc";
+        int start = new MentionDetector(text).getMentions().get(0).start();
+        assertThat(start).isEqualTo(10);
+    }
+
+    @Test
+    public void shouldIgnoreEndBrackets_whenGettintEndPosition() throws InterruptedException {
+        String text = "hello     @roc}";
+        int end = new MentionDetector(text).getMentions().get(0).end();
+        assertThat(end).isEqualTo(14);
+    }
 }
