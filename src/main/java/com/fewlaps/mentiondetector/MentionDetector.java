@@ -32,8 +32,8 @@ public class MentionDetector {
     }
 
     List<Mention> parseMentions() {
-        int atsCount = getAtSymbolsCount();
-        if (atsCount == 0) {
+        List<Integer> atsPositions = getAtSymbolsCount();
+        if (atsPositions.isEmpty()) {
             return Collections.emptyList();
         }
 
@@ -48,7 +48,7 @@ public class MentionDetector {
             }
             start += token.length() + 1;
 
-            if (mentions.size() == atsCount) {
+            if (mentions.size() == atsPositions.size()) {
                 break;
             }
         }
@@ -97,16 +97,17 @@ public class MentionDetector {
         return text.substring(firstMention.end(), nextMention.start()).trim().equals("");
     }
 
-    private int getAtSymbolsCount() {
-        int count = 0;
+    private List<Integer> getAtSymbolsCount() {
+        List<Integer> positions = new ArrayList();
         int index = 0;
         do {
             index = text.indexOf(AT_SYMBOL, index);
             if (index == -1) {
-                return count;
+                return positions;
+            } else {
+                positions.add(index);
             }
             index += AT_SYMBOL.length();
-            count++;
         } while (true);
     }
 }
