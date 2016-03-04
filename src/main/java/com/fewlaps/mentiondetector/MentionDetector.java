@@ -17,6 +17,10 @@ public class MentionDetector {
         this.text = text;
     }
 
+    public boolean hasMentions() {
+        return !getMentions().isEmpty();
+    }
+
     public List<Mention> getMentions() {
         List<Mention> mentions = new ArrayList();
 
@@ -72,9 +76,5 @@ public class MentionDetector {
 
     private boolean textBetweenMentionsIsWhitespace(Mention firstMention, Mention nextMention) {
         return text.substring(firstMention.end(), nextMention.start()).trim().equals("");
-    }
-
-    public boolean hasMentions() {
-        return !getMentions().isEmpty();
     }
 }
