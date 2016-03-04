@@ -29,4 +29,36 @@ public class MentionDetector {
 
         return mentions;
     }
+
+    public List<Sequence> getSequences() {
+        List<Sequence> sequences = new ArrayList();
+        List<Mention> mentions = getMentions();
+
+        Sequence sequence = null;
+        int i = 0;
+        for (Mention mention : mentions) {
+            if (sequence == null) {
+                sequence = new Sequence();
+                sequence.setStart(mention.start());
+            }
+            if (mentions.size() > i + 1) {
+                Mention nextMention = mentions.get(i + 1);
+                if (!textBetweenMentionsIsWhitespace(mention, nextMention)) {
+                    sequence.setEnd(mention.end());
+                    sequences.add(sequence);
+                    sequence = null;
+                }
+            } else {
+                sequence.setEnd(mention.end());
+                sequences.add(sequence);
+                sequence = null;
+            }
+            i++;
+        }
+        return sequences;
+    }
+
+    private boolean textBetweenMentionsIsWhitespace(Mention firstMention, Mention nextMention) {
+        return text.substring(firstMention.end(), nextMention.start()).trim().equals("");
+    }
 }
