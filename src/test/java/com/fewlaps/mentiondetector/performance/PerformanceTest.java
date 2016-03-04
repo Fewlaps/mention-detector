@@ -13,16 +13,32 @@ public class PerformanceTest {
 
     @Test
     public void runGetMentions100000times() throws InterruptedException {
-        System.out.println("With 0 mentions: " + getTimeToParse(LOREM_IPSUM_WITHOUT_MENTIONS) + "ms");
-        System.out.println("With 3 mention at the middle: " + getTimeToParse(LOREM_IPSUM_WITH_3_MENTIONS) + "ms");
-        System.out.println("With 1 mention at the start: " + getTimeToParse(LOREM_IPSUM_WITH_1_MENTION_AT_START) + "ms");
+        System.out.println("getMentions() with 0 mentions: " + getTimeToGetMentions(LOREM_IPSUM_WITHOUT_MENTIONS) + "ms");
+        System.out.println("getMentions() with 3 mention at the middle: " + getTimeToGetMentions(LOREM_IPSUM_WITH_3_MENTIONS) + "ms");
+        System.out.println("getMentions() with 1 mention at the start: " + getTimeToGetMentions(LOREM_IPSUM_WITH_1_MENTION_AT_START) + "ms");
     }
 
-    private long getTimeToParse(String text) {
+    private long getTimeToGetMentions(String text) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < REPETITIONS; i++) {
             MentionDetector detector = new MentionDetector(text);
             detector.getMentions();
+        }
+        return System.currentTimeMillis() - startTime;
+    }
+
+    @Test
+    public void runGetSequences100000times() throws InterruptedException {
+        System.out.println("getSequences() with 0 mentions: " + getTimeToGetSequences(LOREM_IPSUM_WITHOUT_MENTIONS) + "ms");
+        System.out.println("getSequences() with 3 mention at the middle: " + getTimeToGetSequences(LOREM_IPSUM_WITH_3_MENTIONS) + "ms");
+        System.out.println("getSequences() with 1 mention at the start: " + getTimeToGetSequences(LOREM_IPSUM_WITH_1_MENTION_AT_START) + "ms");
+    }
+
+    private long getTimeToGetSequences(String text) {
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < REPETITIONS; i++) {
+            MentionDetector detector = new MentionDetector(text);
+            detector.getSequences();
         }
         return System.currentTimeMillis() - startTime;
     }
