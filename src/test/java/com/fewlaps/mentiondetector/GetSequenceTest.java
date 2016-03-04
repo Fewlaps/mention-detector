@@ -45,9 +45,16 @@ public class GetSequenceTest {
     }
 
     @Test
-    public void shouldReturnOneSequence_whenTextHasThreeMentions_separatedOnlyByLotsOfWhitespaces() throws InterruptedException {
+    public void shouldReturnOneSequence_whenTextHasFourMentions_separatedOnlyByLotsOfWhitespaces() throws InterruptedException {
         String text = "hello @roc    @boronat       @esteve        @aguilera";
         List<Sequence> sequences = new MentionDetector(text).getSequences();
         assertThat(sequences).hasSize(1);
+    }
+
+    @Test
+    public void shouldReturnThreeSequences_whenTextHasFourMentions_andTheSecondIsWrappedByBrackets() throws InterruptedException {
+        String text = "hello @roc    {@boronat}       @esteve        @aguilera";
+        List<Sequence> sequences = new MentionDetector(text).getSequences();
+        assertThat(sequences).hasSize(3);
     }
 }
