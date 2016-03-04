@@ -25,7 +25,7 @@ public class MentionDetector {
         for (String token : tokens) {
             if (token.startsWith(AT_SYMBOL) && token.length() > 2) {
                 String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
-                mentions.add(new Mention(usernameWithoutExclamationMarks, start, start + usernameWithoutExclamationMarks.length()));
+                mentions.add(new Mention(usernameWithoutExclamationMarks, start));
             }
             start += token.length() + 1;
         }

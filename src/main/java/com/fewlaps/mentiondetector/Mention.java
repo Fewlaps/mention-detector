@@ -6,15 +6,13 @@ public class Mention {
 
     private String username;
     private int start;
-    private int end;
 
-    public Mention(String username, int start, int end) {
+    public Mention(String username, int start) {
         if (!username.contains(AT_SYMBOL)) {
             throw new IllegalArgumentException("This username doesn't start with @. Instead of passing " + username + ", pass @" + username);
         }
         this.username = username;
         this.start = start;
-        this.end = end;
     }
 
     public int start() {
@@ -22,7 +20,7 @@ public class Mention {
     }
 
     public int end() {
-        return end;
+        return start + username.length();
     }
 
     public String username() {

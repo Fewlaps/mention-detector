@@ -11,7 +11,7 @@ public class MentionTest {
 
     @Before
     public void setup() {
-        mention = new Mention("@roc", 0, 4);
+        mention = new Mention("@roc", 0);
     }
 
     @Test
@@ -30,6 +30,6 @@ public class MentionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldLaunchAnIllegalArgumentException_whenCreatedWithoutAtSymbol() throws InterruptedException {
-        new Mention("roc", 0, 4);
+        new Mention("roc", 0);
     }
 }
