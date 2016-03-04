@@ -3,6 +3,7 @@ package com.fewlaps.mentiondetector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MentionDetector {
 
@@ -32,28 +33,27 @@ public class MentionDetector {
     }
 
     List<Mention> parseMentions() {
-        List<Integer> atsPositions = getAtSymbolsCount();
-        if (atsPositions.isEmpty()) {
+        List<Integer> atPositions = getAtSymbolsCount();
+        if (atPositions.isEmpty()) {
             return Collections.emptyList();
         }
 
         List<Mention> mentions = new ArrayList();
-
-        String[] tokens = text.split(" ");
-        int start = 0;
-        for (String token : tokens) {
-            if (isMention(token)) {
-                String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
-                mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(token, start)));
-            }
-            start += token.length() + 1;
-
-            if (mentions.size() == atsPositions.size()) {
-                break;
+        for (Integer atPosition : atPositions) {
+            String word = getWordAtPosition(atPosition);
+            if (isMention(word)) {
+                String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(word);
+                mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(word, text.indexOf(word))));
             }
         }
 
         return mentions;
+    }
+
+    private String getWordAtPosition(Integer position) {
+        String substring = text.substring(position);
+        StringTokenizer st = new StringTokenizer(substring, " ");
+        return st.nextToken();
     }
 
     private int getMentionStart(String token, int tokenIndex) {
