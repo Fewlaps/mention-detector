@@ -32,9 +32,11 @@ public class MentionDetector {
     }
 
     List<Mention> parseMentions() {
-        if (!text.contains(AT_SYMBOL)) {
+        int atsCount = getAtSymbolsCount();
+        if (atsCount == 0) {
             return Collections.emptyList();
         }
+
         List<Mention> mentions = new ArrayList();
 
         String[] tokens = text.split(" ");
@@ -45,6 +47,10 @@ public class MentionDetector {
                 mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(token, start)));
             }
             start += token.length() + 1;
+
+            if (mentions.size() == atsCount) {
+                break;
+            }
         }
 
         return mentions;
@@ -89,5 +95,18 @@ public class MentionDetector {
 
     private boolean textBetweenMentionsIsWhitespace(Mention firstMention, Mention nextMention) {
         return text.substring(firstMention.end(), nextMention.start()).trim().equals("");
+    }
+
+    private int getAtSymbolsCount() {
+        int count = 0;
+        int index = 0;
+        do {
+            index = text.indexOf(AT_SYMBOL, index);
+            if (index == -1) {
+                return count;
+            }
+            index += AT_SYMBOL.length();
+            count++;
+        } while (true);
     }
 }
