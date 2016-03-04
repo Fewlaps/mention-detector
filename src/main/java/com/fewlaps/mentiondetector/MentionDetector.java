@@ -5,6 +5,8 @@ import java.util.List;
 
 public class MentionDetector {
 
+    private static final String AT_SYMBOL = "@";
+
     private String text;
     private RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
 
@@ -21,7 +23,7 @@ public class MentionDetector {
         String[] tokens = text.split(" ");
         int start = 0;
         for (String token : tokens) {
-            if (token.startsWith("@") && token.length() > 2) {
+            if (token.startsWith(AT_SYMBOL) && token.length() > 2) {
                 String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(token);
                 mentions.add(new Mention(usernameWithoutExclamationMarks, start, start + usernameWithoutExclamationMarks.length()));
             }
