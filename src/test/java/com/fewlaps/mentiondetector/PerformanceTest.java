@@ -35,4 +35,24 @@ public class PerformanceTest {
 
         verify(mentionDetector, times(1)).parseMentions();
     }
+
+    @Test
+    public void shouldCallParseTextOnce_whenCallingHasMentionsAndGetSequences() throws InterruptedException {
+        MentionDetector mentionDetector = spy(new MentionDetector("a text"));
+
+        mentionDetector.hasMentions();
+        mentionDetector.getSequences();
+
+        verify(mentionDetector, times(1)).parseMentions();
+    }
+
+    @Test
+    public void shouldCallParseTextOnce_whenCallingGetSequencesTwice() throws InterruptedException {
+        MentionDetector mentionDetector = spy(new MentionDetector("a text"));
+
+        mentionDetector.getSequences();
+        mentionDetector.getSequences();
+
+        verify(mentionDetector, times(1)).parseMentions();
+    }
 }
