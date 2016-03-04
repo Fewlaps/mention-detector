@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Fewlaps/mention-detector.svg?branch=master)](https://travis-ci.org/Fewlaps/mention-detector)
+[![Coverage Status](https://coveralls.io/repos/github/Fewlaps/mention-detector/badge.svg?branch=master)](https://coveralls.io/github/Fewlaps/mention-detector?branch=master)
+
 # mention-detector
 Detect **@mentions** and **@sequence @of @mentions** with this fully tested library.
 
