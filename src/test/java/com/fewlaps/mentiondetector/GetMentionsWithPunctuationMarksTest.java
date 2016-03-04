@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GetMentionsWithExclamationMarksTest {
+public class GetMentionsWithPunctuationMarksTest {
 
     @Test
     public void shouldIgnoreExclamationMark() throws InterruptedException {
