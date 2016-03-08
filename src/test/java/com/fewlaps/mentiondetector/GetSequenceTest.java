@@ -57,4 +57,11 @@ public class GetSequenceTest {
         List<Sequence> sequences = new MentionDetector(text).getSequences();
         assertThat(sequences).hasSize(3);
     }
+
+    @Test
+    public void shouldReturnOneSequence_whenTextHasFourMentions_withoutWhitespaces() throws InterruptedException {
+        String text = "hello @roc@boronat@esteve@aguilera";
+        List<Sequence> sequences = new MentionDetector(text).getSequences();
+        assertThat(sequences).hasSize(1);
+    }
 }

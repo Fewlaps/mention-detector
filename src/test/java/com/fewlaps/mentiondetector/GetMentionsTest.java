@@ -84,4 +84,25 @@ public class GetMentionsTest {
         boolean hasMentions = new MentionDetector(text).hasMentions();
         assertThat(hasMentions).isTrue();
     }
+
+    @Test
+    public void shouldReturnTrue_whenPassingATextWithMentions_andNoWhiteSpaces() throws InterruptedException {
+        String text = "I want to mention @rocboronat@esteveaguilera";
+        boolean hasMentions = new MentionDetector(text).hasMentions();
+        assertThat(hasMentions).isTrue();
+    }
+
+    @Test
+    public void shouldReturnRocboronat_whenPassingATextWithMentions_andNoWhiteSpaces_andGettingFirstMention() throws InterruptedException {
+        String text = "I want to mention @rocboronat@esteveaguilera";
+        Mention mention = new MentionDetector(text).getMentions().get(0);
+        assertThat(mention.username()).isEqualTo("@rocboronat");
+    }
+
+    @Test
+    public void shouldReturnEsteveaguilera_whenPassingATextWithMentions_andNoWhiteSpaces_andGettingSecondMention() throws InterruptedException {
+        String text = "I want to mention @rocboronat@esteveaguilera";
+        Mention mention = new MentionDetector(text).getMentions().get(1);
+        assertThat(mention.username()).isEqualTo("@esteveaguilera");
+    }
 }
