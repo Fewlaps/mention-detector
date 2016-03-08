@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class MentionDetector {
 
     private static final String AT_SYMBOL = "@";
+    private static final String WHITESPACE = " ";
 
     private final String text;
     private final RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
@@ -51,9 +52,13 @@ public class MentionDetector {
     }
 
     private String getWordAtPosition(Integer position) {
-        String substring = text.substring(position);
-        StringTokenizer st = new StringTokenizer(substring, " ");
-        return st.nextToken();
+        String substring = getWordWithoutTheAtSymbol(position);
+        StringTokenizer st = new StringTokenizer(substring, WHITESPACE + AT_SYMBOL);
+        return AT_SYMBOL + st.nextToken();
+    }
+
+    private String getWordWithoutTheAtSymbol(Integer position) {
+        return text.substring(position + 1);
     }
 
     private int getMentionStart(String token, int tokenIndex) {
