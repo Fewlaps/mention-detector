@@ -34,13 +34,13 @@ sequence.end(); //Where the sequence ends? At 37!
 
 #Download
 
-* Get <a href="https://github.com/Fewlaps/mention-detector/releases/download/1.0.0/mention-detector-1.0.0.jar">the latest .jar</a> 
+* Get <a href="https://github.com/Fewlaps/mention-detector/releases/download/1.1.0/mention-detector-1.1.0.jar">the latest .jar</a> 
 
 * Grab via Gradle:
 ```groovy
 repositories { jcenter() }
     
-compile 'com.fewlaps.mentiondetector:mention-detector:1.0.0'
+compile 'com.fewlaps.mentiondetector:mention-detector:1.1.0'
 ```
 * Grab via Maven:
 ```xml
@@ -52,7 +52,7 @@ compile 'com.fewlaps.mentiondetector:mention-detector:1.0.0'
 <dependency>
     <groupId>com.fewlaps.mentiondetector</groupId>
     <artifactId>mention-detector</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
