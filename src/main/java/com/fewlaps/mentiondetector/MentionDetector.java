@@ -16,7 +16,7 @@ public class MentionDetector {
     private final RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
     private final EmailValidator emailValidator = new EmailValidator();
 
-    private List<Mention> cache = null;
+    private List<Mention> mentionsCache = null;
 
     public MentionDetector(String text) {
         if (text == null) {
@@ -30,10 +30,10 @@ public class MentionDetector {
     }
 
     public List<Mention> getMentions() {
-        if (cache == null) {
-            cache = parseMentions();
+        if (mentionsCache == null) {
+            mentionsCache = parseMentions();
         }
-        return cache;
+        return mentionsCache;
     }
 
     List<Mention> parseMentions() {
@@ -43,14 +43,17 @@ public class MentionDetector {
         }
 
         List<Mention> mentions = new ArrayList();
+        int lastAtPosition = 0;
         for (int atPosition : atPositions) {
-            if (!isEmail(getWordAtPosition(atPosition))) {
-                String word = getWordStartingAtPosition(atPosition);
-                if (isMention(word)) {
-                    String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(word);
-                    mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(word, text.indexOf(word))));
+            String wordEndingAtPosition = getWordEndingAtPosition(lastAtPosition, atPosition);
+            String wordStartingAtPosition = getWordStartingAtPosition(atPosition);
+            if (!isEmail(wordEndingAtPosition + wordStartingAtPosition)) {
+                if (isMention(wordStartingAtPosition)) {
+                    String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(wordStartingAtPosition);
+                    mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(wordStartingAtPosition, text.indexOf(wordStartingAtPosition))));
                 }
             }
+            lastAtPosition = atPosition;
         }
 
         return mentions;
@@ -60,26 +63,19 @@ public class MentionDetector {
         return emailValidator.isValidEmail(word);
     }
 
-    private String getWordAtPosition(int position) {
-        String beforePosition = getWordEndingAtPosition(position);
-        String afterPosition = getWordStartingAtPosition(position);
-        String word = beforePosition + afterPosition;
-        return word;
-    }
-
-    private String getWordStartingAtPosition(Integer position) {
-        String substring = getWordWithoutTheAtSymbol(position);
+    private String getWordStartingAtPosition(Integer atPosition) {
+        String substring = getWordWithoutTheAtSymbol(atPosition);
         StringTokenizer st = new StringTokenizer(substring, WHITESPACE + AT_SYMBOL);
         return AT_SYMBOL + st.nextToken();
     }
 
-    private String getWordEndingAtPosition(int position) {
-        String startingText = text.substring(0, position);
+    private String getWordEndingAtPosition(int startingPosition, int atPosition) {
+        String startingText = text.substring(startingPosition, atPosition);
         int lastIndex = startingText.lastIndexOf(" ");
         if (lastIndex == -1) {
             return "";
         } else {
-            return startingText.substring(lastIndex, position).trim();
+            return startingText.substring(lastIndex, startingText.length() - 1).trim();
         }
     }
 
