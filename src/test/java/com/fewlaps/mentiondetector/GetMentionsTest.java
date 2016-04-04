@@ -107,7 +107,21 @@ public class GetMentionsTest {
     }
     
     @Test
-    public void shouldReturnEmpty_whenPassingATextWithAnEmail() throws InterruptedException {
+    public void shouldReturnEmpty_whenPassingATextWithAnEmail_atTheMiddle() throws InterruptedException {
+        String text = "My mail is yeradis@example.com HELLO!";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnEmpty_whenPassingATextWithAnEmail_atTheStart() throws InterruptedException {
+        String text = "yeradis@example.com";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnEmpty_whenPassingATextWithAnEmail_atTheEnd() throws InterruptedException {
         String text = "This is an email yeradis@example.com";
         List<Mention> mentions = new MentionDetector(text).getMentions();
         assertThat(mentions).isEmpty();
