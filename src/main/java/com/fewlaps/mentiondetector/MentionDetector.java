@@ -1,5 +1,7 @@
 package com.fewlaps.mentiondetector;
 
+import com.fewlaps.quitnowemailsuggester.EmailValidator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,7 @@ public class MentionDetector {
 
     private final String text;
     private final RemovePunctuationMarks removePunctuationMarks = new RemovePunctuationMarks();
+    private final EmailValidator emailValidator = new EmailValidator();
 
     private List<Mention> cache = null;
 
@@ -40,21 +43,44 @@ public class MentionDetector {
         }
 
         List<Mention> mentions = new ArrayList();
-        for (Integer atPosition : atPositions) {
-            String word = getWordAtPosition(atPosition);
-            if (isMention(word)) {
-                String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(word);
-                mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(word, text.indexOf(word))));
+        for (int atPosition : atPositions) {
+            if (!isEmail(getWordAtPosition(atPosition))) {
+                String word = getWordStartingAtPosition(atPosition);
+                if (isMention(word)) {
+                    String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(word);
+                    mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(word, text.indexOf(word))));
+                }
             }
         }
 
         return mentions;
     }
 
-    private String getWordAtPosition(Integer position) {
+    private boolean isEmail(String word) {
+        return emailValidator.isValidEmail(word);
+    }
+
+    private String getWordAtPosition(int position) {
+        String beforePosition = getWordEndingAtPosition(position);
+        String afterPosition = getWordStartingAtPosition(position);
+        String word = beforePosition + afterPosition;
+        return word;
+    }
+
+    private String getWordStartingAtPosition(Integer position) {
         String substring = getWordWithoutTheAtSymbol(position);
         StringTokenizer st = new StringTokenizer(substring, WHITESPACE + AT_SYMBOL);
         return AT_SYMBOL + st.nextToken();
+    }
+
+    private String getWordEndingAtPosition(int position) {
+        String startingText = text.substring(0, position);
+        int lastIndex = startingText.lastIndexOf(" ");
+        if (lastIndex == -1) {
+            return "";
+        } else {
+            return startingText.substring(lastIndex, position).trim();
+        }
     }
 
     private String getWordWithoutTheAtSymbol(Integer position) {
