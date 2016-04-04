@@ -105,4 +105,11 @@ public class GetMentionsTest {
         Mention mention = new MentionDetector(text).getMentions().get(1);
         assertThat(mention.username()).isEqualTo("@esteveaguilera");
     }
+    
+    @Test
+    public void shouldReturnEmpty_whenPassingATextWithAnEmail() throws InterruptedException {
+        String text = "This is an email yeradis@example.com";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
 }
