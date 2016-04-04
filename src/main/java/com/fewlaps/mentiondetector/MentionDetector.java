@@ -73,7 +73,7 @@ public class MentionDetector {
         String startingText = text.substring(startingPosition, atPosition);
         int lastIndex = startingText.lastIndexOf(" ");
         if (lastIndex == -1) {
-            return "";
+            return startingText;
         } else {
             return startingText.substring(lastIndex, startingText.length() - 1).trim();
         }
