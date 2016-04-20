@@ -65,8 +65,22 @@ public class MentionDetector {
 
     private String getWordStartingAtPosition(Integer atPosition) {
         String substring = getWordWithoutTheAtSymbol(atPosition);
-        StringTokenizer st = new StringTokenizer(substring, WHITESPACE + AT_SYMBOL);
-        return AT_SYMBOL + st.nextToken();
+        if (isNextCharAnAtSymbol(substring)) {
+            return "";
+        } else {
+            StringTokenizer st = new StringTokenizer(substring, WHITESPACE + AT_SYMBOL);
+            return AT_SYMBOL + st.nextToken();
+        }
+    }
+
+    private boolean isNextCharAnAtSymbol(String substring) {
+        int nextAtSymbolPosition = substring.indexOf(AT_SYMBOL);
+        if (nextAtSymbolPosition == -1) {
+            return substring.trim().equals("");
+        } else {
+            String textSinceNextAtSymbol = substring.substring(0, nextAtSymbolPosition);
+            return textSinceNextAtSymbol.trim().equals("");
+        }
     }
 
     private String getWordEndingAtPosition(int startingPosition, int atPosition) {
