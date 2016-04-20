@@ -50,7 +50,7 @@ public class MentionDetector {
             if (!isEmail(wordEndingAtPosition + wordStartingAtPosition)) {
                 if (isMention(wordStartingAtPosition)) {
                     String usernameWithoutExclamationMarks = removePunctuationMarks.removePunctuationMarks(wordStartingAtPosition);
-                    mentions.add(new Mention(usernameWithoutExclamationMarks, getMentionStart(wordStartingAtPosition, text.indexOf(wordStartingAtPosition))));
+                    mentions.add(new Mention(usernameWithoutExclamationMarks, atPosition));
                 }
             }
             lastAtPosition = atPosition;
@@ -81,10 +81,6 @@ public class MentionDetector {
 
     private String getWordWithoutTheAtSymbol(Integer position) {
         return text.substring(position + 1);
-    }
-
-    private int getMentionStart(String token, int tokenIndex) {
-        return tokenIndex + token.indexOf(AT_SYMBOL);
     }
 
     public List<Sequence> getSequences() {
