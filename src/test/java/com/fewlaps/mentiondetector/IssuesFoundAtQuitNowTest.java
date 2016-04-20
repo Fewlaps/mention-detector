@@ -26,7 +26,7 @@ public class IssuesFoundAtQuitNowTest {
     public void getSequences_shouldNotCrash_whenPassingAQuitNowText1() throws InterruptedException {
         String text = "@Twinx@ Texie@sabertooth89 great Quit!!";
         List<Sequence> sequences = new MentionDetector(text).getSequences();
-        assertThat(sequences).hasSize(1);
+        assertThat(sequences).isNotEmpty();
     }
 
     @Test
