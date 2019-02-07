@@ -22,7 +22,7 @@ public class MentionDetector {
         if (text == null) {
             throw new NullPointerException();
         }
-        this.text = text;
+        this.text = text.replaceAll("\n", " ");
     }
 
     public boolean hasMentions() {
