@@ -39,7 +39,7 @@ publish {
     userOrg = 'fewlaps'
     groupId = 'com.fewlaps.mentiondetector'
     artifactId = 'mention-detector'
-    publishVersion = '1.2.2'
+    publishVersion = project.version
     desc = 'Detect @mentions with this fully tested library'
     website = 'https://github.com/Fewlaps/mention-detector'
 }
