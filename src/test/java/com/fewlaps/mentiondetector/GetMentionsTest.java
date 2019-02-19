@@ -126,4 +126,53 @@ public class GetMentionsTest {
         List<Mention> mentions = new MentionDetector(text).getMentions();
         assertThat(mentions).isEmpty();
     }
+
+    @Test
+    public void shouldReturnNickDot_whenPassingATextWithMentionWithDot_atTheEnd() throws InterruptedException {
+        String text = "Hello @nick.";
+        String username = new MentionDetector(text).getMentions().get(0).usernameWithoutAtSymbol();
+        assertThat(username).isEqualTo("nick.");
+    }
+
+    @Test
+    public void shouldReturnDashNick_whenPassingATextWithMentionWithDash_atTheStart() throws InterruptedException {
+        String text = "Hello @-nick";
+        String username = new MentionDetector(text).getMentions().get(0).usernameWithoutAtSymbol();
+        assertThat(username).isEqualTo("-nick");
+    }
+
+    @Test
+    public void shouldReturnNick_whenPassingATextWithMentionWithExclamation_atTheEnd() throws InterruptedException {
+        String text = "Hello @nick!";
+        String username = new MentionDetector(text).getMentions().get(0).usernameWithoutAtSymbol();
+        assertThat(username).isEqualTo("nick");
+    }
+
+    @Test
+    public void shouldNotReturnMentions_whenPassingATextWithMentionWithExclamation_atTheStart() throws InterruptedException {
+        String text = "Hello @!nick";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
+
+    @Test
+    public void shouldNotReturnMentions_whenPassingATextWithMentionWithSpace_atTheStart() throws InterruptedException {
+        String text = "Hello @ nick";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
+
+    @Test
+    public void shouldNotReturnMentions_whenPassingATextWithMentionWithSymbol_atTheMiddle() throws InterruptedException {
+        String text = "Hello nick@nick";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
+
+    @Test
+    public void shouldNotReturnMentions_whenPassingATextWithMentionWithMentionSymbol_atTheStartAndEnd() throws InterruptedException {
+        String text = "Hello @nick@";
+        List<Mention> mentions = new MentionDetector(text).getMentions();
+        assertThat(mentions).isEmpty();
+    }
 }
