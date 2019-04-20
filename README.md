@@ -4,6 +4,12 @@
 # mention-detector
 Detect **@mentions** and **@sequence @of @mentions** with this fully tested library.
 
+[QuitNow!](https://quitnow.app), our main application to help people quit smoking, has an inapp chat to create a beautiful community of ex-smokers. They like to mention each other in the chat, and sometimes, someone mentions lots of people. Everytime the app finds a mention, it creates a span to bold the mention. The bad news are that, sometimes, a message could include more than 10 or 20 mentions, and that's a lot of spans. In that case, the best thing to do is to join those 20 spans in only one, which improves the performance dramatically.
+
+So, we needed a fast way to look for mentions and sequences of mentions. And here is it.
+
+Time to introduce the library!
+
 ```java
 String text = "Hello! This is a great introduction to @MentionDetector!";
 //With MentionDetector you can... well. You can detect mentions!
