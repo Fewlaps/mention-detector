@@ -34,19 +34,19 @@ public class RemovePunctuationMarksTest {
 
     @Test
     public void shouldRemoveReversedExclamationMarks() throws InterruptedException {
-        String textWithPunctuationMarks = "hello¡¡¡¡";
+        String textWithPunctuationMarks = "helloï¿½ï¿½ï¿½ï¿½";
 
         String textWithoutPunctuationMarks = removePunctuationMarks.removePunctuationMarks(textWithPunctuationMarks);
 
-        assertThat(textWithoutPunctuationMarks).doesNotContain("¡");
+        assertThat(textWithoutPunctuationMarks).doesNotContain("ï¿½");
     }
 
     @Test
     public void shouldRemoveReversedQuestionMarks() throws InterruptedException {
-        String textWithPunctuationMarks = "hello¿¿¿";
+        String textWithPunctuationMarks = "helloï¿½ï¿½ï¿½";
 
         String textWithoutPunctuationMarks = removePunctuationMarks.removePunctuationMarks(textWithPunctuationMarks);
 
-        assertThat(textWithoutPunctuationMarks).doesNotContain("¿");
+        assertThat(textWithoutPunctuationMarks).doesNotContain("ï¿½");
     }
 }
