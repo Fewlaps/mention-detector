@@ -60,7 +60,7 @@ public class MentionDetector {
     }
 
     private boolean isEmail(String word) {
-        return emailValidator.isValidEmail(word);
+        return emailValidator.hasGoodSyntax(word);
     }
 
     private String getWordStartingAtPosition(Integer atPosition) {
