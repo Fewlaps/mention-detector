@@ -8,7 +8,7 @@ public class RemovePunctuationMarks {
 
     private static final String EMPTY = "";
     private static final String[] PUNCTUATION_MARKS = {
-            "!", "\\?", "¡", "¿", "\\(", "\\)", "\\{", "\\}", "\\[", "\\]"
+            "!", "\\?", "ï¿½", "ï¿½", "\\(", "\\)", "\\{", "\\}", "\\[", "\\]"
     };
 
     private static List<Pattern> cache;
